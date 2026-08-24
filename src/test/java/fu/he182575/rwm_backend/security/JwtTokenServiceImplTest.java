@@ -37,4 +37,22 @@ class JwtTokenServiceImplTest {
         assertEquals(user.getRole(), claims.role());
         assertTrue(Duration.between(claims.issuedAt(), claims.expiresAt()).toMinutes() >= 59);
     }
+
+    @Test
+    void parseAndValidate_shouldRejectInvalidIssuer() {
+        UserEntity user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setLoginIdentifier("admin01");
+        user.setFullName("Admin User");
+        user.setRole(UserRole.ADMIN);
+        user.setAccountStatus(AccountStatus.ACTIVE);
+
+        JwtProperties issuingProperties = new JwtProperties();
+        issuingProperties.setIssuer("wrong-issuer");
+        issuingProperties.setSecret("test-only-super-secret-key-for-jwt-validation");
+        issuingProperties.setExpirationMinutes(60);
+        String token = new JwtTokenServiceImpl(issuingProperties).issueAccessToken(user);
+
+        assertThrows(JwtTokenException.class, () -> jwtTokenService.parseAndValidate(token));
+    }
 }

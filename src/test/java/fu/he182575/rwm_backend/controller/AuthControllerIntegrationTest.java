@@ -152,6 +152,74 @@ class AuthControllerIntegrationTest {
         assertTrue(response.body().contains("\"expiresAt\""));
     }
 
+    @Test
+    void me_shouldReturnCurrentUserForValidToken() throws Exception {
+        UserEntity user = activeUser("me01", UserRole.STAFF);
+        userRepository.save(user);
+
+        String token = loginAndExtractToken("me01", "Password123");
+        HttpResponse<String> response = get("/api/v1/auth/me", "Bearer " + token);
+
+        assertEquals(200, response.statusCode());
+        assertTrue(response.body().contains("\"loginIdentifier\":\"me01\""));
+        assertTrue(response.body().contains("\"role\":\"STAFF\""));
+    }
+
+    @Test
+    void me_shouldRejectMissingToken() throws Exception {
+        HttpResponse<String> response = get("/api/v1/auth/me");
+
+        assertEquals(401, response.statusCode());
+        assertTrue(response.body().contains("\"code\":\"UNAUTHORIZED\""));
+    }
+
+    @Test
+    void me_shouldRejectUserDisabledAfterTokenIssued() throws Exception {
+        UserEntity user = activeUser("disabled-after-token", UserRole.STAFF);
+        userRepository.save(user);
+
+        String token = loginAndExtractToken("disabled-after-token", "Password123");
+        user.setAccountStatus(AccountStatus.DISABLED);
+        userRepository.save(user);
+
+        HttpResponse<String> response = get("/api/v1/auth/me", "Bearer " + token);
+
+        assertEquals(401, response.statusCode());
+        assertTrue(response.body().contains("\"code\":\"UNAUTHORIZED\""));
+    }
+
+    @Test
+    void corsPreflight_shouldAllowApprovedFrontendOrigin() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/api/v1/auth/me"))
+                .header(HttpHeaders.ORIGIN, "http://localhost:5173")
+                .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
+                .method("OPTIONS", HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+        assertEquals(200, response.statusCode());
+        assertEquals("http://localhost:5173", response.headers()
+                .firstValue(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN)
+                .orElse(""));
+    }
+
+    @Test
+    void corsPreflight_shouldRejectUnapprovedOrigin() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/api/v1/auth/me"))
+                .header(HttpHeaders.ORIGIN, "https://evil.example")
+                .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
+                .method("OPTIONS", HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+        assertEquals(403, response.statusCode());
+        assertTrue(response.headers().firstValue(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN).isEmpty());
+    }
+
     private HttpResponse<String> postJson(String body) throws Exception {
         return postJson(body, null);
     }
@@ -196,5 +264,16 @@ class AuthControllerIntegrationTest {
             throw new IllegalStateException("accessToken closing quote not found in response: " + body);
         }
         return body.substring(start, end);
+    }
+
+    private UserEntity activeUser(String loginIdentifier, UserRole role) {
+        UserEntity user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setLoginIdentifier(loginIdentifier);
+        user.setPasswordHash(passwordEncoder.encode("Password123"));
+        user.setFullName("Test User");
+        user.setRole(role);
+        user.setAccountStatus(AccountStatus.ACTIVE);
+        return user;
     }
 }

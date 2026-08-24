@@ -1,6 +1,8 @@
 package fu.he182575.rwm_backend.security;
 
-import fu.he182575.rwm_backend.common.enums.UserRole;
+import fu.he182575.rwm_backend.common.enums.AccountStatus;
+import fu.he182575.rwm_backend.entity.UserEntity;
+import fu.he182575.rwm_backend.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,9 +20,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
+    private final UserRepository userRepository;
 
-    public JwtAuthenticationFilter(JwtTokenService jwtTokenService) {
+    public JwtAuthenticationFilter(JwtTokenService jwtTokenService, UserRepository userRepository) {
         this.jwtTokenService = jwtTokenService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -34,18 +38,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authorization.substring(7);
             try {
                 JwtClaims claims = jwtTokenService.parseAndValidate(token);
-                SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(
-                                claims.loginIdentifier(),
-                                token,
-                                List.of(new SimpleGrantedAuthority("ROLE_" + claims.role().name()))
-                        )
-                );
+                userRepository.findById(claims.userId())
+                        .filter(user -> user.getAccountStatus() == AccountStatus.ACTIVE)
+                        .ifPresent(user -> authenticate(token, user));
             } catch (JwtTokenException ex) {
                 SecurityContextHolder.clearContext();
             }
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private void authenticate(String token, UserEntity user) {
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(
+                        user.getId(),
+                        token,
+                        List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+                )
+        );
     }
 }

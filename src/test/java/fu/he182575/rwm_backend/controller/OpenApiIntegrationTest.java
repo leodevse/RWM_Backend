@@ -30,6 +30,7 @@ class OpenApiIntegrationTest {
 
         assertEquals(200, response.statusCode());
         assertTrue(response.body().contains("/api/v1/auth/login"));
+        assertTrue(response.body().contains("/api/v1/auth/me"));
         assertTrue(response.body().contains("bearerAuth"));
     }
 }

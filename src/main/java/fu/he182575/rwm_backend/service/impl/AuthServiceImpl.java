@@ -7,14 +7,17 @@ import fu.he182575.rwm_backend.common.enums.UserRole;
 import fu.he182575.rwm_backend.common.exception.AccountDisabledException;
 import fu.he182575.rwm_backend.common.exception.AuthenticationFailedException;
 import fu.he182575.rwm_backend.common.exception.InvalidRoleException;
+import fu.he182575.rwm_backend.common.exception.UnauthenticatedException;
 import fu.he182575.rwm_backend.dto.LoginRequest;
 import fu.he182575.rwm_backend.dto.LoginResponse;
+import fu.he182575.rwm_backend.dto.UserSummaryResponse;
 import fu.he182575.rwm_backend.entity.UserEntity;
 import fu.he182575.rwm_backend.mapper.AuthMapper;
 import fu.he182575.rwm_backend.repository.UserRepository;
 import fu.he182575.rwm_backend.security.JwtClaims;
 import fu.he182575.rwm_backend.security.JwtTokenService;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,6 +79,19 @@ public class AuthServiceImpl implements fu.he182575.rwm_backend.service.AuthServ
 
         recordAudit(request.loginIdentifier(), user.getId(), LoginOutcome.SUCCESS, null);
         return authMapper.toLoginResponse(token, claims.expiresAt(), user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserSummaryResponse currentUser(UUID userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UnauthenticatedException("Authentication required"));
+
+        if (user.getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new UnauthenticatedException("Authentication required");
+        }
+
+        return authMapper.toUserSummary(user);
     }
 
     private boolean isAllowedRole(UserRole role) {

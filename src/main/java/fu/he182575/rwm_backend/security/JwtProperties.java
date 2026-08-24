@@ -1,5 +1,8 @@
 package fu.he182575.rwm_backend.security;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -7,8 +10,14 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "rwm.security.jwt")
 public class JwtProperties {
 
-    private String issuer = "rwm-backend";
-    private String secret = "development-only-super-secret-key-development-only-super-secret-key";
+    @NotBlank
+    private String issuer;
+
+    @NotBlank
+    @Size(min = 32)
+    private String secret;
+
+    @Min(1)
     private long expirationMinutes = 60;
 
     public String getIssuer() {

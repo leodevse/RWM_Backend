@@ -4,7 +4,6 @@ import fu.he182575.rwm_backend.dto.LoginResponse;
 import fu.he182575.rwm_backend.dto.UserSummaryResponse;
 import fu.he182575.rwm_backend.entity.UserEntity;
 import java.time.Instant;
-import java.util.Objects;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +20,15 @@ public class AuthMapper {
                         user.getFullName(),
                         user.getRole()
                 )
+        );
+    }
+
+    public UserSummaryResponse toUserSummary(UserEntity user) {
+        return new UserSummaryResponse(
+                user.getId(),
+                user.getLoginIdentifier(),
+                user.getFullName(),
+                user.getRole()
         );
     }
 }

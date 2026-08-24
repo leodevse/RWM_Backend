@@ -14,7 +14,8 @@ Trạng thái các Features & Specifications trong hệ thống:
 
 | Feature Slug | Feature Name | Owner | Status | Paths |
 | :--- | :--- | :--- | :--- | :--- |
-| *(Chưa có feature)* | Chạy `/sdd-context --feature=<slug>` để khởi tạo | - | - | `.sdd/features/` |
+| `feat-001-user-login` | User Login & Authentication Integration | Backend Team | PREPARATION | [Feature](./features/feat-001-user-login/TASKS.md) |
+| `feat-002-warehouse-dashboard` | Warehouse Dashboard APIs | Backend Team | PREPARATION | [Feature](./features/feat-002-warehouse-dashboard/TASKS.md) |
 
 ---
 

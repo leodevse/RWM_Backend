@@ -63,6 +63,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         }
 
         String payloadJson = new String(decode(parts[1]), StandardCharsets.UTF_8);
+        String issuer = readString(payloadJson, "iss");
+        if (!jwtProperties.getIssuer().equals(issuer)) {
+            throw new JwtTokenException("Token issuer is invalid");
+        }
+
         Instant expiresAt = Instant.ofEpochSecond(readLong(payloadJson, "exp"));
         if (Instant.now().isAfter(expiresAt)) {
             throw new JwtTokenException("Token is expired");

@@ -7,6 +7,7 @@ import fu.he182575.rwm_backend.common.enums.UserRole;
 import fu.he182575.rwm_backend.common.exception.AccountDisabledException;
 import fu.he182575.rwm_backend.common.exception.AuthenticationFailedException;
 import fu.he182575.rwm_backend.common.exception.InvalidRoleException;
+import fu.he182575.rwm_backend.common.exception.UnauthenticatedException;
 import fu.he182575.rwm_backend.dto.LoginRequest;
 import fu.he182575.rwm_backend.entity.UserEntity;
 import fu.he182575.rwm_backend.mapper.AuthMapper;
@@ -120,5 +121,36 @@ class AuthServiceImplTest {
                 () -> authService.login(new LoginRequest("legacy01", "Password123")));
 
         verify(loginAuditService).record("legacy01", user.getId(), LoginOutcome.FAILURE, LoginFailureReason.INVALID_ROLE);
+    }
+
+    @Test
+    void currentUser_shouldReturnActiveUserSummary() {
+        UserEntity user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setLoginIdentifier("current01");
+        user.setFullName("Current User");
+        user.setRole(UserRole.STAFF);
+        user.setAccountStatus(AccountStatus.ACTIVE);
+
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        var response = authService.currentUser(user.getId());
+
+        assertEquals(user.getId(), response.id());
+        assertEquals("current01", response.loginIdentifier());
+        assertEquals(UserRole.STAFF, response.role());
+    }
+
+    @Test
+    void currentUser_shouldRejectDisabledUser() {
+        UserEntity user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setLoginIdentifier("disabled-current");
+        user.setRole(UserRole.STAFF);
+        user.setAccountStatus(AccountStatus.DISABLED);
+
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        assertThrows(UnauthenticatedException.class, () -> authService.currentUser(user.getId()));
     }
 }
