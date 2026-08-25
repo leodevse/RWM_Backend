@@ -20,9 +20,9 @@ spring:
 
 rwm:
   cors:
-    allowed-origins: ${RWM_CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+    allowed-origins: ${RWM_CORS_ALLOWED_ORIGINS}
   security:
     jwt:
-      issuer: ${RWM_JWT_ISSUER:rwm-backend}
+      issuer: ${RWM_JWT_ISSUER}
       secret: ${RWM_JWT_SECRET}
-      expiration-minutes: ${RWM_JWT_EXPIRATION_MINUTES:60}
+      expiration-minutes: ${RWM_JWT_EXPIRATION_MINUTES}

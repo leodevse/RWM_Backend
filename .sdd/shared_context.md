@@ -1,6 +1,6 @@
 # MULTI-AGENT SHARED CONTEXT & API CONTRACTS
 
-# Version: 1.0.0
+# Version: 1.1.0
 # Last-Updated: 2026-08-24 12:52 UTC
 # Lead Agent: Orchestrator (@main-agent)
 
@@ -11,9 +11,10 @@
 | Agent Name | Role / Specialist | Ownership Boundary |
 | :--- | :--- | :--- |
 | **`@lead-architect`** | Plan & Contract Governance | `.sdd/`, `CONSTITUTION.md`, `CLAUDE.md` |
-| **`@backend-agent`** | Usecase & Domain Developer | `src/domain/`, `src/usecase/` |
-| **`@infra-agent`** | DB, Redis & Integration Dev | `src/infra/`, `tests/integration/` |
-| **`@tester-agent`** | Verification & E2E Tester | `tests/unit/`, `tests/e2e/` |
+| **`@lead-architect`** | Plan & contract governance | `.sdd/`, `CONSTITUTION.md`, `CLAUDE.md`, `AGENTS.md` |
+| **`@backend-agent`** | Spring MVC, service and security implementation | `src/main/java/fu/rwm_backend/controller/`, `dto/`, `mapper/`, `service/`, `security/` |
+| **`@persistence-agent`** | JPA, repositories and database migrations | `src/main/java/fu/rwm_backend/entity/`, `repository/`, `src/main/resources/db/migration/` |
+| **`@tester-agent`** | Unit, integration and API verification | `src/test/java/fu/rwm_backend/`, `src/test/resources/` |
 
 ---
 
@@ -35,3 +36,10 @@ Approved frontend origins are configured with `RWM_CORS_ALLOWED_ORIGINS`; local 
 
 - Logout and refresh-token contracts require a product/security decision before implementation.
 - Warehouse, inventory, movement, and report endpoints require separate feature specifications.
+
+### Backend implementation conventions
+
+- Normal dependency flow is `controller -> service -> repository -> entity`.
+- Controllers use DTOs and Bean Validation; JPA entities are not API response models.
+- Production schema changes use new Flyway migrations and applied migrations are immutable.
+- Maven Wrapper is the canonical build and verification tool: `./mvnw test` or `./mvnw.cmd test` on Windows.

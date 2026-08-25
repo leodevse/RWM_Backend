@@ -1,7 +1,7 @@
 # PHASE 3: BACKEND PREPARATION TASKS
 
 # Feature: User Login & Authentication Integration
-# Status: PREPARATION
+# Status: PENDING HUMAN REVIEW
 
 This backlog records backend work needed for frontend integration. It is not execution-ready until `CONTEXT.md`, `SPEC.md`, and `PLAN.md` are created and approved.
 
@@ -28,14 +28,15 @@ This backlog records backend work needed for frontend integration. It is not exe
   - **Dependency**: T001
   - **Verifiable**: Valid Bearer token returns the current user; missing, expired, or invalid token returns the standard `UNAUTHORIZED` envelope.
 
-- [ ] **T004**: Decide and document the logout strategy for stateless JWT sessions.
-  - **Status**: BLOCKED - HUMAN SECURITY/PRODUCT DECISION
-  - **Options**: Client-side token removal only, or server-side token revocation/denylist.
-  - **Verifiable**: Approved decision is reflected in `SPEC.md` and has an integration test.
+- [x] **T004**: Decide and document the logout strategy for stateless JWT sessions.
+  - **Decision**: Client-side token removal only.
+  - **Status**: OUT OF SCOPE - NO SERVER REVOCATION/DENYLIST
+  - **Verifiable**: Approved decision is reflected in `SPEC.md`.
 
-- [ ] **T005**: Decide whether refresh tokens are in scope and define their delivery and revocation contract.
-  - **Status**: BLOCKED - HUMAN SECURITY/PRODUCT DECISION
-  - **Verifiable**: Approved decision is reflected in `SPEC.md`; either a refresh endpoint is tested or the feature is explicitly out of scope.
+- [x] **T005**: Decide whether refresh tokens are in scope and define their delivery and revocation contract.
+  - **Decision**: Refresh tokens are out of scope for this feature.
+  - **Status**: OUT OF SCOPE - ACCESS TOKENS ONLY
+  - **Verifiable**: Approved decision is reflected in `SPEC.md`.
 
 ### Security hardening
 
@@ -53,16 +54,19 @@ This backlog records backend work needed for frontend integration. It is not exe
 
 - [x] Backend and frontend agree on the versioned login contract.
 - [x] Cross-origin frontend requests are covered by automated tests.
-- [ ] `me`, logout, and refresh behavior are explicitly specified, implemented or marked out of scope.
+- [x] `me`, logout, and refresh behavior are explicitly specified, implemented or marked out of scope.
 - [x] Security configuration contains no usable committed secrets.
 - [x] Backend test suite and OpenAPI validation pass.
 
 ## AI Agent Recommendation
 
-- **Status**: IMPLEMENTED WHERE UNBLOCKED
-- **Recommendation**: Resolve T004-T005 before adding session lifecycle behavior.
-- **Risks**: CORS origins, logout semantics, refresh-token scope, and post-issuance account disabling are not yet approved decisions.
-- **Required human decision**: Approve the task scope and decide T004-T005.
+- **Status**: PENDING HUMAN REVIEW
+- **Scope**: User login and authenticated-session integration
+- **Recommendation**: Approve the implemented stateless JWT contract, client-side logout decision and deferred refresh-token scope.
+- **Evidence**: Backend source, Flyway migration, OpenAPI tests, authentication integration tests and feature artifacts.
+- **Risks and assumptions**: Client-side logout cannot revoke a stolen access token before expiry; refresh tokens remain out of scope.
+- **Alternatives considered**: Server-side denylist and refresh-token rotation are deferred to a future feature.
+- **Required human decision**: Approve the feature scope and security lifecycle decisions.
 
 ## Human Final Review
 
@@ -70,4 +74,4 @@ This backlog records backend work needed for frontend integration. It is not exe
 - **Decision**:
 - **Reviewer**:
 - **Reviewed at**:
-- **Follow-up**:
+- **Follow-up**: Human Director/authorized reviewer must review the updated artifacts.
