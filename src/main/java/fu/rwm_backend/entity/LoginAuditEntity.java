@@ -1,7 +1,7 @@
-package fu.he182575.rwm_backend.entity;
+package fu.rwm_backend.entity;
 
-import fu.he182575.rwm_backend.common.enums.LoginFailureReason;
-import fu.he182575.rwm_backend.common.enums.LoginOutcome;
+import fu.rwm_backend.common.enums.LoginFailureReason;
+import fu.rwm_backend.common.enums.LoginOutcome;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

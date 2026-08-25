@@ -1,8 +1,8 @@
-package fu.he182575.rwm_backend.mapper;
+package fu.rwm_backend.mapper;
 
-import fu.he182575.rwm_backend.dto.LoginResponse;
-import fu.he182575.rwm_backend.dto.UserSummaryResponse;
-import fu.he182575.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.dto.LoginResponse;
+import fu.rwm_backend.dto.UserSummaryResponse;
+import fu.rwm_backend.entity.UserEntity;
 import java.time.Instant;
 import org.springframework.stereotype.Component;
 

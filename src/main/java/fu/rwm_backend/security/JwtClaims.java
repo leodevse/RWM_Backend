@@ -1,6 +1,6 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
-import fu.he182575.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.common.enums.UserRole;
 import java.time.Instant;
 import java.util.UUID;
 

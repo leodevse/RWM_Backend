@@ -1,10 +1,10 @@
-package fu.he182575.rwm_backend.controller;
+package fu.rwm_backend.controller;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.common.enums.UserRole;
-import fu.he182575.rwm_backend.entity.UserEntity;
-import fu.he182575.rwm_backend.repository.LoginAuditRepository;
-import fu.he182575.rwm_backend.repository.UserRepository;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.repository.LoginAuditRepository;
+import fu.rwm_backend.repository.UserRepository;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

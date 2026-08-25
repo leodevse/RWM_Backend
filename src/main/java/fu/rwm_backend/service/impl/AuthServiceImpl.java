@@ -1,39 +1,42 @@
-package fu.he182575.rwm_backend.service.impl;
+package fu.rwm_backend.service.impl;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.common.enums.LoginFailureReason;
-import fu.he182575.rwm_backend.common.enums.LoginOutcome;
-import fu.he182575.rwm_backend.common.enums.UserRole;
-import fu.he182575.rwm_backend.common.exception.AccountDisabledException;
-import fu.he182575.rwm_backend.common.exception.AuthenticationFailedException;
-import fu.he182575.rwm_backend.common.exception.InvalidRoleException;
-import fu.he182575.rwm_backend.common.exception.UnauthenticatedException;
-import fu.he182575.rwm_backend.dto.LoginRequest;
-import fu.he182575.rwm_backend.dto.LoginResponse;
-import fu.he182575.rwm_backend.dto.UserSummaryResponse;
-import fu.he182575.rwm_backend.entity.UserEntity;
-import fu.he182575.rwm_backend.mapper.AuthMapper;
-import fu.he182575.rwm_backend.repository.UserRepository;
-import fu.he182575.rwm_backend.security.JwtClaims;
-import fu.he182575.rwm_backend.security.JwtTokenService;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.common.enums.LoginFailureReason;
+import fu.rwm_backend.common.enums.LoginOutcome;
+import fu.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.common.exception.AccountDisabledException;
+import fu.rwm_backend.common.exception.AuthenticationFailedException;
+import fu.rwm_backend.common.exception.InvalidRoleException;
+import fu.rwm_backend.common.exception.UnauthenticatedException;
+import fu.rwm_backend.dto.LoginRequest;
+import fu.rwm_backend.dto.LoginResponse;
+import fu.rwm_backend.dto.UserSummaryResponse;
+import fu.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.mapper.AuthMapper;
+import fu.rwm_backend.repository.UserRepository;
+import fu.rwm_backend.security.JwtClaims;
+import fu.rwm_backend.security.JwtTokenService;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import fu.rwm_backend.service.AuthService;
+import fu.rwm_backend.service.LoginAuditService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AuthServiceImpl implements fu.he182575.rwm_backend.service.AuthService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
-    private final fu.he182575.rwm_backend.service.LoginAuditService loginAuditService;
+    private final LoginAuditService loginAuditService;
     private final JwtTokenService jwtTokenService;
     private final PasswordEncoder passwordEncoder;
     private final AuthMapper authMapper;
 
     public AuthServiceImpl(
             UserRepository userRepository,
-            fu.he182575.rwm_backend.service.LoginAuditService loginAuditService,
+            LoginAuditService loginAuditService,
             JwtTokenService jwtTokenService,
             PasswordEncoder passwordEncoder,
             AuthMapper authMapper

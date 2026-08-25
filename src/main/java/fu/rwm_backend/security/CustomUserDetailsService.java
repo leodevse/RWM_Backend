@@ -1,7 +1,7 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
-import fu.he182575.rwm_backend.entity.UserEntity;
-import fu.he182575.rwm_backend.repository.UserRepository;
+import fu.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.repository.UserRepository;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;

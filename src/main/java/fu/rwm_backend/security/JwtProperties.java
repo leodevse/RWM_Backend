@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

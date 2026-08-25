@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.config;
+package fu.rwm_backend.config;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
-import fu.he182575.rwm_backend.common.enums.UserRole;
-import fu.he182575.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.entity.UserEntity;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

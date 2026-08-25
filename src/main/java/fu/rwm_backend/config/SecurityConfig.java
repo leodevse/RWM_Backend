@@ -1,9 +1,9 @@
-package fu.he182575.rwm_backend.config;
+package fu.rwm_backend.config;
 
-import fu.he182575.rwm_backend.security.JwtAuthenticationFilter;
-import fu.he182575.rwm_backend.security.JwtProperties;
-import fu.he182575.rwm_backend.common.exception.ErrorCode;
-import fu.he182575.rwm_backend.dto.ApiErrorResponse;
+import fu.rwm_backend.security.JwtAuthenticationFilter;
+import fu.rwm_backend.security.JwtProperties;
+import fu.rwm_backend.common.exception.ErrorCode;
+import fu.rwm_backend.dto.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.Instant;
 import java.util.List;

@@ -1,11 +1,8 @@
-package fu.he182575.rwm_backend.common.exception;
+package fu.rwm_backend.common.exception;
 
-import fu.he182575.rwm_backend.dto.ApiErrorResponse;
+import fu.rwm_backend.dto.ApiErrorResponse;
 import java.time.Instant;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

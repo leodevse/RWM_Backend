@@ -1,14 +1,13 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.common.enums.UserRole;
-import fu.he182575.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

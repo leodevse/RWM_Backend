@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.controller;
+package fu.rwm_backend.controller;
 
 import java.net.URI;
 import java.net.http.HttpClient;

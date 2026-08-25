@@ -1,8 +1,8 @@
-package fu.he182575.rwm_backend.repository;
+package fu.rwm_backend.repository;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.common.enums.UserRole;
-import fu.he182575.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.entity.UserEntity;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

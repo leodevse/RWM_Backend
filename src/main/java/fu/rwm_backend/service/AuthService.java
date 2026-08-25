@@ -1,8 +1,8 @@
-package fu.he182575.rwm_backend.service;
+package fu.rwm_backend.service;
 
-import fu.he182575.rwm_backend.dto.LoginRequest;
-import fu.he182575.rwm_backend.dto.LoginResponse;
-import fu.he182575.rwm_backend.dto.UserSummaryResponse;
+import fu.rwm_backend.dto.LoginRequest;
+import fu.rwm_backend.dto.LoginResponse;
+import fu.rwm_backend.dto.UserSummaryResponse;
 import java.util.UUID;
 
 public interface AuthService {

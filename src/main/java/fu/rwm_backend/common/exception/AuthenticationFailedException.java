@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.common.exception;
+package fu.rwm_backend.common.exception;
 
 public class AuthenticationFailedException extends ApiException {
 

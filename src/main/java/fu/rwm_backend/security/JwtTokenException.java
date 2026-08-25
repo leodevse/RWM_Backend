@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
 public class JwtTokenException extends RuntimeException {
 

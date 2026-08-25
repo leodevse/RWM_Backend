@@ -1,10 +1,10 @@
-package fu.he182575.rwm_backend.service.impl;
+package fu.rwm_backend.service.impl;
 
-import fu.he182575.rwm_backend.common.enums.LoginFailureReason;
-import fu.he182575.rwm_backend.common.enums.LoginOutcome;
-import fu.he182575.rwm_backend.entity.LoginAuditEntity;
-import fu.he182575.rwm_backend.repository.LoginAuditRepository;
-import fu.he182575.rwm_backend.service.LoginAuditService;
+import fu.rwm_backend.common.enums.LoginFailureReason;
+import fu.rwm_backend.common.enums.LoginOutcome;
+import fu.rwm_backend.entity.LoginAuditEntity;
+import fu.rwm_backend.repository.LoginAuditRepository;
+import fu.rwm_backend.service.LoginAuditService;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

@@ -1,9 +1,9 @@
-package fu.he182575.rwm_backend.controller;
+package fu.rwm_backend.controller;
 
-import fu.he182575.rwm_backend.dto.LoginRequest;
-import fu.he182575.rwm_backend.dto.LoginResponse;
-import fu.he182575.rwm_backend.dto.UserSummaryResponse;
-import fu.he182575.rwm_backend.service.AuthService;
+import fu.rwm_backend.dto.LoginRequest;
+import fu.rwm_backend.dto.LoginResponse;
+import fu.rwm_backend.dto.UserSummaryResponse;
+import fu.rwm_backend.service.AuthService;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;

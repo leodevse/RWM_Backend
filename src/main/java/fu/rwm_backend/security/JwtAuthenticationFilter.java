@@ -1,8 +1,8 @@
-package fu.he182575.rwm_backend.security;
+package fu.rwm_backend.security;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.entity.UserEntity;
-import fu.he182575.rwm_backend.repository.UserRepository;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.entity.UserEntity;
+import fu.rwm_backend.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

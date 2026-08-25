@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.config;
+package fu.rwm_backend.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;

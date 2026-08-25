@@ -1,4 +1,4 @@
-package fu.he182575.rwm_backend.dto;
+package fu.rwm_backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

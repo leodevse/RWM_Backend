@@ -1,7 +1,7 @@
-package fu.he182575.rwm_backend.entity;
+package fu.rwm_backend.entity;
 
-import fu.he182575.rwm_backend.common.enums.AccountStatus;
-import fu.he182575.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.common.enums.AccountStatus;
+import fu.rwm_backend.common.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

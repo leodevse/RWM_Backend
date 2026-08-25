@@ -1,6 +1,6 @@
-package fu.he182575.rwm_backend.dto;
+package fu.rwm_backend.dto;
 
-import fu.he182575.rwm_backend.common.enums.UserRole;
+import fu.rwm_backend.common.enums.UserRole;
 import java.util.UUID;
 
 public record UserSummaryResponse(
